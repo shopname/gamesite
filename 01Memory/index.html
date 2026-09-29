@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <title>神経衰弱 | TEMのゲームサイト</title>
+        <link rel="icon" href="/00Home/icons/icon.svg" type="image/svg+xml">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=IBM+Plex+Sans+JP:wght@400;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/00Home/css/tokens.css">
+        <link rel="stylesheet" href="/00Home/css/gamekit.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body data-game-id="memory">
+        <main class="gk-main memory">
+            <div class="gk-segmented" id="modes" role="group" aria-label="むずかしさ">
+                <button type="button" data-mode="easy" aria-pressed="false">かんたん</button>
+                <button type="button" data-mode="normal" aria-pressed="true">ふつう</button>
+                <button type="button" data-mode="hard" aria-pressed="false">むずかしい</button>
+            </div>
+
+            <dl class="gk-stats">
+                <div class="gk-stat"><dt>手数</dt><dd id="moves">0</dd></div>
+                <div class="gk-stat"><dt>ペア</dt><dd><span id="pairs">0</span>/<span id="total">8</span></dd></div>
+                <div class="gk-stat"><dt>時間</dt><dd id="time">0:00</dd></div>
+            </dl>
+
+            <div class="board" id="board" aria-live="polite" aria-busy="true"></div>
+
+            <p class="hint" id="hint">カードをタップしてはじめよう</p>
+        </main>
+
+        <script src="/00Home/js/api.js"></script>
+        <script src="/00Home/js/gamekit.js"></script>
+        <script src="game.js"></script>
+    </body>
+</html>

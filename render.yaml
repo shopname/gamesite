@@ -1,0 +1,19 @@
+# Render の設定（Blueprint）。
+# Render の画面で「New → Blueprint」からこのリポジトリを選ぶと、この内容でサーバーが作られます。
+services:
+  - type: web
+    name: tem-gamesite
+    runtime: docker
+    plan: free
+    region: singapore          # 日本から一番近いリージョン
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeploy: true           # GitHub に push すると自動で更新される
+    envVars:
+      - key: PORT
+        value: "8080"
+      # お気に入り・履歴・ランキングの保存先（Neon の接続文字列）。
+      # 値は Render の画面で入力する（GitHub には載せない）。
+      - key: ConnectionStrings__Postgres
+        sync: false

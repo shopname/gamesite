@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+**/App_Data/
+**/*.db
+**/*.db-*
+**/.vs/
+**/.vscode/
+.git/

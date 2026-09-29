@@ -1,0 +1,28 @@
+{
+  // このファイルがあるフォルダが、自動でホームページの一覧に載ります。
+  // ロジックは server/GameSite.Server/Games/Memory/MemoryGame.cs（GameId = "memory"）
+  "id": "memory",
+  "title": "神経衰弱",
+  "reading": "しんけいすいじゃく",
+  "summary": "カードをめくって、同じ絵のペアを見つけよう。",
+  "description": "うら向きのカードを2枚ずつめくり、同じ絵のペアをそろえます。少ない手数・短い時間でクリアするほど高得点。",
+  "tags": ["パズル", "カード", "のんびり"],
+  "genre": "カード",
+  "players": "1人",
+  "playTime": "2分",
+  "controls": ["タッチ", "マウス"],
+  "howToPlay": [
+    "カードをタップして2枚めくります",
+    "同じ絵ならそのまま、ちがう絵ならうら向きに戻ります",
+    "すべてのペアをそろえたらクリア"
+  ],
+  "icon": "🃏",
+  "color": "#2f9e6b",
+  "added": "2026-09-29",
+  "featured": true,
+  "modes": [
+    { "id": "easy", "label": "かんたん" },
+    { "id": "normal", "label": "ふつう", "default": true },
+    { "id": "hard", "label": "むずかしい" }
+  ]
+}

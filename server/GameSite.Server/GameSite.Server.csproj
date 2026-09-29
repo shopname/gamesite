@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>GameSite.Server</RootNamespace>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Npgsql" Version="8.0.5" />
+  </ItemGroup>
+
+  <!--
+    公開（dotnet publish）時に、gamesite/ 直下のフロント側ファイル（00Home と各ゲームフォルダ）を
+    出力先の site/ にコピーする。開発時（dotnet run）は gamesite/ を直接配信するのでコピー不要。
+  -->
+  <PropertyGroup>
+    <!-- Linux（Docker / Render）でも動くよう、パスの区切りは / で書く -->
+    <SiteSourceRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</SiteSourceRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <SiteFiles Include="$(SiteSourceRoot)/**/*"
+               Exclude="$(SiteSourceRoot)/server/**;$(SiteSourceRoot)/**/.*;$(SiteSourceRoot)/**/.*/**;$(SiteSourceRoot)/**/bin/**;$(SiteSourceRoot)/**/obj/**;$(SiteSourceRoot)/render.yaml;$(SiteSourceRoot)/README.md" />
+    <ResolvedFileToPublish Include="@(SiteFiles)"
+                           RelativePath="site/$([System.String]::Copy('%(RecursiveDir)').Replace('\', '/'))%(Filename)%(Extension)"
+                           CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

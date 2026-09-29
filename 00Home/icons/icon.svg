@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#c9401a"/>
+  <g transform="rotate(-6 256 256)">
+    <text x="256" y="350" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="300" fill="#fff">T</text>
+  </g>
+</svg>

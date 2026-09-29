@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <title>数あて | TEMのゲームサイト</title>
+        <link rel="icon" href="/00Home/icons/icon.svg" type="image/svg+xml">
+        <!-- 共通の見た目（色・ボタン・結果ダイアログ） -->
+        <link rel="stylesheet" href="/00Home/css/tokens.css">
+        <link rel="stylesheet" href="/00Home/css/gamekit.css">
+        <style>
+            .guess { display: grid; gap: 1rem; text-align: center; }
+            .guess input {
+                width: 100%; min-height: 3.5rem;
+                border-radius: var(--radius-sm); border: 1px solid var(--line);
+                background: var(--surface); text-align: center;
+                font-size: 1.6rem; font-family: var(--font-mono);
+            }
+            .guess .message { font-size: 1.3rem; font-weight: 700; min-height: 2em; margin: 0; }
+        </style>
+    </head>
+    <!-- data-game-id は game.json の id と同じにする -->
+    <body data-game-id="guess">
+        <main class="gk-main">
+            <form class="guess" id="form">
+                <p class="message" id="message">1〜100 のどれかな？</p>
+                <input id="number" type="number" inputmode="numeric" min="1" max="100" required aria-label="数を入力" enterkeyhint="done">
+                <button class="gk-btn gk-btn-primary gk-btn-block" type="submit">これだ！</button>
+                <p id="tries">0 回目</p>
+            </form>
+        </main>
+
+        <script src="/00Home/js/api.js"></script>
+        <script src="/00Home/js/gamekit.js"></script>
+        <script src="game.js"></script>
+    </body>
+</html>

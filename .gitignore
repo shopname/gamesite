@@ -1,0 +1,13 @@
+# ビルド成果物
+bin/
+obj/
+
+# ローカルのデータベース（GitHub に載せない）
+App_Data/
+*.db
+*.db-shm
+*.db-wal
+
+# エディタ
+.vs/
+*.user

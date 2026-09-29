@@ -1,0 +1,71 @@
+/* =========================================================
+   共通のデザイン値（ホームページと各ゲームで共有）
+   ========================================================= */
+:root {
+    --bg: #f5f2ea;
+    --surface: #fffdf8;
+    --surface-2: #ece7db;
+    --ink: #1c1a16;
+    --muted: #5f594d;
+    --line: #ddd6c6;
+    --accent: #c9401a;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbe3d9;
+    --fav: #d8284f;
+    --focus: #2a6fdb;
+    --scrim: rgb(10 9 7 / 55%);
+    --shadow: 0 1px 2px rgb(28 26 22 / 6%), 0 8px 24px -12px rgb(28 26 22 / 20%);
+    --shadow-lg: 0 2px 4px rgb(28 26 22 / 6%), 0 24px 48px -16px rgb(28 26 22 / 30%);
+
+    --font-display: "Fraunces", "IBM Plex Sans JP", serif;
+    --font-body: "IBM Plex Sans JP", system-ui, -apple-system, "Hiragino Sans", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    --radius: 1rem;
+    --radius-sm: .625rem;
+    --gutter: 1rem;
+    --maxw: 72rem;
+    --tap: 2.75rem;          /* 44px: タップ領域の最小サイズ */
+    --tabbar-h: 4rem;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --ease: cubic-bezier(.2, .7, .2, 1);
+
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #13120f;
+        --surface: #1c1b17;
+        --surface-2: #2a2822;
+        --ink: #f2ede2;
+        --muted: #b0a99b;
+        --line: #353128;
+        --accent: #ff7a4d;
+        --accent-ink: #1a0d07;
+        --accent-soft: #3a2118;
+        --fav: #ff6b88;
+        --focus: #7aa7ff;
+        --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px -12px rgb(0 0 0 / 60%);
+        --shadow-lg: 0 2px 4px rgb(0 0 0 / 30%), 0 24px 48px -16px rgb(0 0 0 / 70%);
+        color-scheme: dark;
+    }
+}
+:root[data-theme="dark"] {
+    --bg: #13120f;
+    --surface: #1c1b17;
+    --surface-2: #2a2822;
+    --ink: #f2ede2;
+    --muted: #b0a99b;
+    --line: #353128;
+    --accent: #ff7a4d;
+    --accent-ink: #1a0d07;
+    --accent-soft: #3a2118;
+    --fav: #ff6b88;
+    --focus: #7aa7ff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px -12px rgb(0 0 0 / 60%);
+    --shadow-lg: 0 2px 4px rgb(0 0 0 / 30%), 0 24px 48px -16px rgb(0 0 0 / 70%);
+    color-scheme: dark;
+}
+
+@media (min-width: 45rem) { :root { --gutter: 1.75rem; } }

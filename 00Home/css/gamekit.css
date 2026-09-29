@@ -1,0 +1,188 @@
+/* =========================================================
+   ゲーム画面の共通スタイル（gamekit.js と一緒に使う）
+   各ゲームは tokens.css → gamekit.css → 自分の style.css の順に読み込む。
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+    margin: 0;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+
+/* ---------- 上のバー ---------- */
+.gk-bar {
+    position: sticky; top: 0; z-index: 20;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .5rem;
+    padding: calc(.4rem + env(safe-area-inset-top, 0px)) .5rem .4rem;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+}
+.gk-home {
+    display: inline-flex; align-items: center; gap: .25rem;
+    min-height: var(--tap);
+    padding: 0 .9rem 0 .6rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 700; font-size: .9rem;
+    text-decoration: none;
+}
+.gk-home svg { width: 1.1rem; height: 1.1rem; }
+.gk-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.1rem;
+    text-align: center;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gk-slot { display: flex; gap: .4rem; min-width: 2.75rem; justify-content: flex-end; }
+
+.gk-main {
+    flex: 1;
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1rem 1rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- ボタン ---------- */
+.gk-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    min-height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--ink);
+    white-space: nowrap;
+    transition: transform .15s var(--ease);
+}
+.gk-btn:active { transform: scale(.97); }
+.gk-btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.gk-btn-block { width: 100%; }
+.gk-btn:disabled { opacity: .5; pointer-events: none; }
+.gk-icon-btn {
+    display: grid; place-items: center;
+    width: var(--tap); height: var(--tap);
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+.gk-icon-btn svg { width: 1.2rem; height: 1.2rem; }
+
+/* 選択肢（難易度など） */
+.gk-segmented {
+    display: grid;
+    grid-auto-flow: column; grid-auto-columns: 1fr;
+    padding: .25rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+}
+.gk-segmented button {
+    min-height: 2.5rem;
+    border: 0; border-radius: 999px;
+    background: none;
+    font-weight: 700; font-size: .9rem;
+    color: var(--muted);
+}
+.gk-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+
+/* 数値表示 */
+.gk-stats { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .5rem; }
+.gk-stat {
+    padding: .5rem .75rem;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    text-align: center;
+}
+.gk-stat dt { font-size: .75rem; color: var(--muted); }
+.gk-stat dd { margin: 0; font-family: var(--font-mono); font-weight: 600; font-size: 1.2rem; }
+
+/* ---------- 結果ダイアログ ---------- */
+.gk-dialog {
+    width: min(26rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 0;
+    border-radius: 1.5rem;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+    overflow: auto;
+}
+.gk-dialog::backdrop { background: var(--scrim); }
+.gk-dialog[open] { animation: gk-pop .3s var(--ease); }
+.gk-dialog-body { display: grid; gap: 1rem; padding: 1.5rem 1.25rem 1.25rem; text-align: center; }
+.gk-dialog h2 { margin: 0; font-family: var(--font-display); font-size: 1.6rem; }
+.gk-score { font-family: var(--font-mono); font-size: 2.6rem; font-weight: 600; line-height: 1; color: var(--accent); }
+.gk-score small { font-size: 1rem; color: var(--muted); margin-left: .25rem; }
+.gk-details { display: flex; justify-content: center; gap: 1.25rem; color: var(--muted); font-size: .9rem; margin: 0; }
+.gk-details dd { margin: 0; font-weight: 700; color: var(--ink); }
+.gk-form { display: grid; gap: .5rem; text-align: left; }
+.gk-form label { font-size: .85rem; font-weight: 700; color: var(--muted); }
+.gk-form input {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    background: var(--bg);
+    font-size: max(16px, 1rem);
+}
+.gk-form input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.gk-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.gk-rank-msg { font-weight: 700; }
+
+.gk-ranking { list-style: none; margin: 0; padding: 0; text-align: left; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+.gk-ranking li { display: flex; gap: .75rem; padding: .45rem .8rem; border-top: 1px solid var(--line); }
+.gk-ranking li:first-child { border-top: 0; }
+.gk-ranking .rank { width: 1.6rem; font-family: var(--font-mono); color: var(--muted); }
+.gk-ranking .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gk-ranking .score { font-family: var(--font-mono); font-weight: 600; }
+.gk-ranking .is-me { background: var(--accent-soft); }
+
+/* ---------- トースト ---------- */
+.gk-toast {
+    position: fixed; left: 50%; z-index: 60;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    max-width: calc(100% - 2rem);
+    padding: .7rem 1.2rem;
+    border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-size: .9rem;
+    transform: translate(-50%, 1rem);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .25s var(--ease);
+}
+.gk-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@keyframes gk-pop { from { opacity: 0; transform: scale(.94); } }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
