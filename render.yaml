@@ -17,3 +17,7 @@ services:
       # 値は Render の画面で入力する（GitHub には載せない）。
       - key: ConnectionStrings__Postgres
         sync: false
+      # 数独の途中セーブに付ける署名の鍵。Render が初回に自動でランダムな値を作る。
+      # 再起動しても変わらないので、サーバーがスリープした後も「続きから」遊べる。
+      - key: Sudoku__SigningKey
+        generateValue: true

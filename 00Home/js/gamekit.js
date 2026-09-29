@@ -108,9 +108,11 @@
 
     /**
      * 結果ダイアログ。名前を入れてランキング登録 → 順位とランキングを表示。
-     * @param {{title?:string, session:Session, details?:[string,string][], onRetry:Function}} opts
+     * retryLabel … 右下のボタンの文字（既定「もう一度」）。押すと onRetry が呼ばれる。
+     * message    … スコアの下に出す補足（ランキング対象外の理由など）。
+     * @param {{title?:string, session:Session, details?:[string,string][], onRetry:Function, retryLabel?:string, message?:string}} opts
      */
-    function showResult({ title = "クリア！", session, details = [], onRetry }) {
+    function showResult({ title = "クリア！", session, details = [], onRetry, retryLabel = "もう一度", message = "" }) {
         const score = session.state.score;
         let savedName = "";
         try { savedName = localStorage.getItem(NAME_KEY) || ""; } catch { /* 無視 */ }
@@ -120,6 +122,7 @@
                 <h2 id="gk-dialog-title">${esc(title)}</h2>
                 ${score != null ? `<p class="gk-score">${score.toLocaleString()}<small>点</small></p>` : ""}
                 ${details.length ? `<dl class="gk-details">${details.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
+                ${message ? `<p class="gk-note">${esc(message)}</p>` : ""}
                 ${score != null ? `
                 <form class="gk-form" id="gk-score-form">
                     <label for="gk-name">ランキングにのせる名前</label>
@@ -129,7 +132,7 @@
                 <div id="gk-board"></div>
                 <div class="gk-actions">
                     <a class="gk-btn" href="${esc(HOME_URL)}">ホームへ</a>
-                    <button type="button" class="gk-btn gk-btn-primary" id="gk-retry">もう一度</button>
+                    <button type="button" class="gk-btn gk-btn-primary" id="gk-retry">${esc(retryLabel)}</button>
                 </div>
             </div>`;
 
@@ -187,6 +190,14 @@
         async start(options = {}) {
             const res = await api.post(`${base()}/sessions`, { options });
             return new Session(res.sessionId, res.state);
+        },
+
+        /**
+         * 保存しておいたセッション ID で、プレイ中のゲームにつなぎ直す（ページを開き直したとき用）。
+         * state は最初の act() の返事で入る。サーバー側で期限切れなら act() が 410 エラーになる。
+         */
+        attach(sessionId) {
+            return new Session(sessionId, null);
         },
 
         leaderboard(mode, limit = 10) {

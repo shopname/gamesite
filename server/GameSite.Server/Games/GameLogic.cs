@@ -18,8 +18,8 @@ public interface IGameLogic
     GameSession CreateSession(JsonElement options, GameContext context);
 }
 
-/// <summary>セッション作成時に渡される共通の道具。</summary>
-public sealed record GameContext(Random Random, TimeProvider Time);
+/// <summary>セッション作成時に渡される共通の道具。Player はゲームを始めたプレイヤーの ID（X-Player-Id）。</summary>
+public sealed record GameContext(Random Random, TimeProvider Time, Guid Player);
 
 /// <summary>
 /// 1 回分のゲーム状態。サーバーのメモリ上にだけ存在し、ブラウザには GetView() の結果だけが送られる。

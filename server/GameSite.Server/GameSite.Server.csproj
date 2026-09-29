@@ -13,6 +13,11 @@
     <PackageReference Include="Npgsql" Version="8.0.5" />
   </ItemGroup>
 
+  <!-- 数独の問題バンク。DLL に埋め込むので、公開先でファイルの置き場所を気にしなくてよい -->
+  <ItemGroup>
+    <EmbeddedResource Include="Games/Sudoku/Data/sudoku17.txt" />
+  </ItemGroup>
+
   <!--
     公開（dotnet publish）時に、gamesite/ 直下のフロント側ファイル（00Home と各ゲームフォルダ）を
     出力先の site/ にコピーする。開発時（dotnet run）は gamesite/ を直接配信するのでコピー不要。

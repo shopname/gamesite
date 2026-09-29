@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    数独の問題バンクを作るツール（使い方は Program.cs の先頭を参照）。
+    判定ロジックはサーバーと同じソースファイルを直接取り込んで使う（二重管理しない）。
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuGrid.cs" />
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuSolver.cs" />
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuRater.cs" />
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuRandom.cs" />
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuDifficulty.cs" />
+    <Compile Include="../../GameSite.Server/Games/Sudoku/SudokuPuzzleBank.cs" />
+  </ItemGroup>
+
+</Project>

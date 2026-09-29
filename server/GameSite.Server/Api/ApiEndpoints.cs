@@ -120,7 +120,7 @@ public static class ApiEndpoints
             if (registry.Find(id) is not IGameLogic logic)
                 return Results.Problem("このゲームのロジックがサーバーに登録されていません。", statusCode: 501);
 
-            var session = store.Create(id, player, logic.CreateSession(body?.Options ?? default, new GameContext(Random.Shared, time)));
+            var session = store.Create(id, player, logic.CreateSession(body?.Options ?? default, new GameContext(Random.Shared, time, player)));
             await players.RecordPlayAsync(player, id); // 1 回ゲームを始めた = 1 プレイ
             return Results.Ok(new { sessionId = session.Id, state = session.Game.GetView() });
         });

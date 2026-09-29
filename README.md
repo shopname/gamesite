@@ -26,8 +26,10 @@ gamesite/
 ├─ 01Memory/                   サンプルゲーム「神経衰弱」
 │  ├─ game.json                ← これがあるフォルダが自動で一覧に載る
 │  ├─ index.html / style.css / game.js
+├─ 02Sudoku/                   数独（難問・デイリー問題・ランキング）
 └─ server/
    ├─ Dockerfile               公開用
+   ├─ tools/SudokuBankBuilder/ 数独の問題バンクを作るツール
    └─ GameSite.Server/         C# サーバー
       ├─ Program.cs
       ├─ Api/                  API（ブラウザから呼ばれる入口）
@@ -35,8 +37,20 @@ gamesite/
       ├─ Data/                 お気に入り・履歴・ランキング（SQLite）
       └─ Games/                ゲームのロジック
          ├─ GameLogic.cs       全ゲーム共通のしくみ
-         └─ Memory/MemoryGame.cs
+         ├─ Memory/MemoryGame.cs
+         └─ Sudoku/            出題・難易度判定・正誤判定・セーブ（Data/sudoku17.txt が問題バンク）
 ```
+
+### 数独について
+
+- **出題**：既知の「17 個ヒント・一意解」の問題（Gordon Royle の一覧）を難易度判定した
+  `Games/Sudoku/Data/sudoku17.txt` から選び、数字や行・列を入れ替えて出題します。19 個・21 個の難易度は、正解からヒントを足して作ります。
+  どの問題も、出題の直前に「解が 1 つだけ」であることを確かめています。
+- **難易度判定**：人間の解き方（シングル → ロックされた候補 → ペア・トリプル → X-Wing など → 仮置き）で実際に解き、
+  必要だった最も難しい技法で判定します（`SudokuRater.cs`）。
+- **問題バンクの作り直し**：`server/tools/SudokuBankBuilder` で `dotnet run -c Release -- build <17個ヒントの一覧> <出力先>` を実行します（詳細は `Program.cs` の先頭）。
+- **中断からの再開**：途中経過はブラウザに「署名付き」で保存します。署名の鍵は設定 `Sudoku:SigningKey` で、
+  Render では `render.yaml` により自動生成されます。手元では `App_Data/sudoku-signing.key` が自動で作られます。
 
 ## 自分の PC で動かす
 

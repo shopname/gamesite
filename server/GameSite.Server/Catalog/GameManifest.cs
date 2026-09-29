@@ -42,4 +42,9 @@ public sealed class GameMode
     public string Label { get; set; } = "";
     /// <summary>詳細画面で最初に見せるランキングのモード。</summary>
     public bool Default { get; set; }
+    /// <summary>
+    /// 日付ごとにランキングを分けるモード（デイリー問題など）。
+    /// true のとき、"{Id}-YYYY-MM-DD"（例: "daily-2026-09-30"）という日付付きのモードでランキングを取得できる。
+    /// </summary>
+    public bool Dated { get; set; }
 }

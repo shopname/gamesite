@@ -33,8 +33,17 @@ public sealed class Game
     {
         var modes = Manifest.Modes;
         if (modes.Length == 0) return "default";
-        return (modes.FirstOrDefault(m => m.Id == mode) ?? modes.FirstOrDefault(m => m.Default) ?? modes[0]).Id;
+        if (IsDatedMode(mode)) return mode!;
+        return (modes.FirstOrDefault(m => m.Id == mode && !m.Dated) ?? modes.FirstOrDefault(m => m.Default) ?? modes[0]).Id;
     }
+
+    /// <summary>"daily-2026-09-30" のような、Dated なモードに日付を付けた形か。</summary>
+    private bool IsDatedMode(string? mode) =>
+        mode is not null && Manifest.Modes.Any(m =>
+            m.Dated &&
+            mode.Length == m.Id.Length + 11 &&
+            mode.StartsWith(m.Id + "-", StringComparison.Ordinal) &&
+            DateOnly.TryParseExact(mode[(m.Id.Length + 1)..], "yyyy-MM-dd", out _));
 }
 
 /// <summary>
